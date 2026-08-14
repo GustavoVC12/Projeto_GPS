@@ -3,9 +3,9 @@
 **Disciplina:** Gerência de Projetos de Software\
 **Duração prevista:** 1h30\
 **Entrega da aula:** Mini-Charter do projeto\
-**Grupo:** PokApp
+**Grupo:** PokApp\
 **Integrantes:**
-Gustavo Gomes, Laís Schmitz, Matheus Santos e Raquel Neres
+Gustavo Gomes, Laís Schmitz, Matheus Santos e Raquel Neres\
 **Link do repositório GitHub: [Projeto_GPS](https://github.com/GustavoVC12/Projeto_GPS)**
 
 ------------------------------------------------------------------------
