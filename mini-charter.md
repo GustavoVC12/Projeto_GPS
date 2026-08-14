@@ -6,6 +6,7 @@
 **Grupo:** PokApp
 **Integrantes:**
 Gustavo Gomes, Laís Schmitz, Matheus Santos e Raquel Neres
+**Link do repositório GitHub: [Projeto_GPS](https://github.com/GustavoVC12/Projeto_GPS)**
 
 ------------------------------------------------------------------------
 
