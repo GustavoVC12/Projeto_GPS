@@ -6,141 +6,77 @@
 **Grupo:** PokApp\
 **Integrantes:**
 Gustavo Gomes, Laís Schmitz, Matheus Santos e Raquel Neres\
-**Link do repositório GitHub: [Projeto_GPS](https://github.com/GustavoVC12/Projeto_GPS)**
 
 ------------------------------------------------------------------------
-
-## Objetivo
-
-Nesta atividade, o grupo deverá escolher e compreender um problema que
-possa ser tratado por meio de um projeto de software.
-
-Ao final da aula, o grupo deverá possuir:
-
--   grupo constituído;
--   domínio e problema pesquisados;
--   projeto definido em alto nível;
--   Mini-Charter consistente;
--   registro das fontes utilizadas na pesquisa.
-
-> **Importante:** nesta etapa, não se pretende definir detalhadamente
-> requisitos, arquitetura, tecnologias, cronograma ou orçamento. O
-> objetivo é estabelecer **por que o projeto existe, o que pretende
-> alcançar e quais são inicialmente suas fronteiras**.
-
-------------------------------------------------------------------------
-
 # Etapa 1 - Formação da equipe e escolha do domínio
-
-**Tempo previsto: 10 minutos**
 
 ## 1.1 Integrantes
 1.  Gustavo Gomes
-
 2.  Laís Schmitz
-
 3.  Matheus Santos
-
 4.  Raquel Neres
 
 ## 1.2 Domínio ou área escolhida
-Um sistema para gerenciamento de coleções e troca/venda de cartas do jogo  Pokémon TCG.
+Desenvolvimento de software para gestão de coleções digitais e análise probabilística voltada ao jogo Pokémon TCG Pocket.
 
 ## 1.3 Problema inicialmente identificado
-
-Há diferentes sistemas atualmente em uso para o gerenciamento de coleções do Pokémon TCG, assim como várias plataformas de venda para as mesmas, mas não existe ainda uma que ofereça ambas as funcionalidades de forma integrada, fazendo com que os usuários dependam de várias ferramentas dispersas e descentralizadas, o que pode se tornar cansativo.
-
+Ausência de uma ferramenta integrada que permita o rastreamento da coleção do usuário e forneça dados estatísticos precisos sobre a probabilidade de aquisição de novas cartas, dificultando a otimização de recursos limitados dentro do jogo.
 
 ------------------------------------------------------------------------
 
 ## 1.4 Quem enfrenta esse problema?
-Os colecionadores de cartas do jogo interessados em trocar ou comprar cartas com outros usuários, que são obrigados a criar contas em diferentes plataformas para quando estas funcionalidades poderiam ser integradas em uma única ferramenta.
+Jogadores *Free-to-Play* (F2P) que possuem recursos diários limitados (como o limite de pacotes gratuitos) e buscam maximizar a eficiência na obtenção de cartas para completar coleções ou montar decks competitivos de forma paritária aos jogadores *Pay-to-Win* (P2W).
 
 ------------------------------------------------------------------------
 
 ## 1.5 Por que esse problema merece ser resolvido?
-O problema apontado afeta milhares de jogadores ao redor do mundo, e afeta diretamente um forte mercado mundial, uma vez que torna mais difícil a participação dos jogadores.
-
-------------------------------------------------------------------------
-
-------------------------------------------------------------------------
+Para democratizar o cenário competitivo do jogo, reduzindo a expressiva discrepância de progressão entre jogadores que investem financeiramente e aqueles que utilizam apenas os recursos gratuitos, otimizando assim a experiência de colecionismo e a tomada de decisão estratégica do usuário.
 
 ------------------------------------------------------------------------
 
 # Etapa 2 - Pesquisa e compreensão do problema
 
-**Tempo previsto: 20 minutos**
-
-Antes de definir a solução, pesquisem o domínio escolhido.
-
-Podem ser utilizadas fontes como:
-
--   sistemas existentes;
--   sites institucionais;
--   documentos;
--   artigos;
--   notícias;
--   normas;
--   entrevistas rápidas;
--   outras fontes adequadas ao domínio.
-
 ## 2.1 Descobertas relevantes
 
 **Descoberta 1**
 
-Há sistemas no mercado que oferecem suporte à jogos de cartas além do Pokémon TCG, o que indica que o sistema *pode* de ser expandido para outras coleções no futuro.
+Transparência das taxas de *drop*: O jogo disponibiliza publicamente as probabilidades exatas de obtenção de cada carta, o que viabiliza a implementação de algoritmos de cálculo determinístico e probabilístico no sistema com alta confiabilidade.
 
 ------------------------------------------------------------------------
 
 **Descoberta 2**
 
-Sistemas existentes permitem acompanhar o preço de uma determinada carta no mercado, facilitando o processo de venda.
+Disponibilidade de dados externos: Existe uma API pública devidamente estruturada que fornece metadados e imagens em alta resolução de todas as cartas já lançadas, otimizando o processo de carga de dados do sistema e poupando esforço de catalogação manual.
 
 ------------------------------------------------------------------------
 
 **Descoberta 3**
 
-Todos os sistemas oferecem ferramentas de busca e filtragem eficientes, visto que o grande número de cartas pode vir a prejudicar a experiência do usuário.
+Padrão de mercado: Plataformas similares focam fortemente em mecanismos avançados de busca e filtragem, indicando uma necessidade latente dos usuários por ferramentas de organização eficientes devido ao alto volume de dados (grande quantidade de expansões e cartas).
 
 ------------------------------------------------------------------------
 
 ## 2.2 Fontes consultadas
 
-1.  [Sistema TCG Collector](https://www.tcgcollector.com/)
+1.  Aplicativo Oficial Pokémon TCG Pocket (disponível nas plataformas digitais Play Store e App Store).
 
     ------------------------------------------------------------------------
 
-2.  [Sistema PK.TCG](https://pktcg.app/)
+2.  [Documentação da API Pública TCGDex](https://tcgdex.dev/tcg-pocket) - Fonte primária para obtenção da base de dados de cartas.
 
     ------------------------------------------------------------------------  
 
-3.  [Sistema Sorted](https://tcgsorted.com/)
+3.  [Plataforma TCG Sorted](https://tcgsorted.com/) - Sistema de referência utilizado para benchmarking de funcionalidades de catalogação.
 
 ------------------------------------------------------------------------  
 
 ## 2.3 Formulação do problema
 
-A partir da pesquisa, descrevam o problema em uma ou duas frases, **sem
-descrever ainda a solução**.
-
-**Problema: não há no mercado uma ferramenta que una o gerenciamento de coleção com a venda e troca de cartas entre usuários.**
-
-------------------------------------------------------------------------
-
-------------------------------------------------------------------------
-
-> **Checkpoint - 30 minutos:** o grupo deve conseguir explicar
-> claramente qual é o problema, quem é afetado e por que ele é
-> relevante.
+**Problema: A dificuldade sistêmica dos jogadores *Free-to-Play* em otimizar o uso de seus recursos limitados para completar coleções e manter a competitividade contra usuários que realizam microtransações.**
 
 ------------------------------------------------------------------------
 
 # Etapa 3 - Definição do projeto
-
-**Tempo previsto: 15 minutos**
-
-Agora proponham um projeto de software para enfrentar o problema
-identificado.
 
 ## 3.1 Nome provisório do projeto: PokApp
 
@@ -148,106 +84,96 @@ identificado.
 
 ## 3.2 Solução proposta em alto nível
 
-Um sistema que ofereça as seguintes funcionalidades:
+Uma aplicação que centralize as seguintes funcionalidades principais:
 
-- Gerenciamento de coleção dos usuários.
-- Filtros de busca.
-- Venda e troca de cartas entre os usuários.
-
-------------------------------------------------------------------------
+- Módulo de gerenciamento do inventário pessoal de cartas do usuário.
+- Mecanismo de busca e filtragem avançada do catálogo completo.
+- Motor de cálculo estatístico para recomendação automatizada do pacote ideal a ser aberto, maximizando a probabilidade matemática de obtenção de cartas inéditas.
 
 ------------------------------------------------------------------------
 
 ## 3.3 Beneficiários ou usuários principais
 
-- Jogadores interessados apenas em gerenciar sua coleção.
-- Jogadores interessados em gerenciar sua coleção E trocar,vender e comprar cartas com outros usuários.
+- Jogadores com foco em colecionismo (complecionistas) que buscam obter a totalidade das cartas lançadas.
+- Jogadores focados no cenário competitivo, que buscam otimizar a obtenção de cartas específicas e fortes para a composição de seus decks.
 
 ------------------------------------------------------------------------
 
 ## 3.4 Síntese do projeto
 
-Completem:
-
 > Nosso projeto pretende
-> entregar uma plataforma
+> entregar uma plataforma analítica e de gestão
 > para
-> jogadores do jogo de cartas Pokémon TCG
+> jogadores ativos de Pokémon TCG Pocket
 > de modo a
-> permitir que acompanhem sua coleção e vendam e troquem cartas entre si em um ambiente centralizado e de fácil utilização.
-
-> **Checkpoint - 45 minutos:** qualquer integrante deve conseguir
-> explicar o projeto em aproximadamente 30 segundos, sem entrar em
-> detalhes técnicos.
+> permitir o rastreamento prático de suas coleções e viabilizar a tomada de decisão baseada em dados, mitigando a desvantagem competitiva em relação aos usuários pagantes.
 
 ------------------------------------------------------------------------
 
 # Etapa 4 - Construção do Mini-Charter
 
-**Tempo previsto: 30 minutos**
-
 ## 4.1 Problema / Justificativa
 
 Que situação motiva a realização do projeto?
 
+A significativa disparidade de progressão e poder competitivo entre usuários F2P e P2W, motivada pela ausência de ferramentas que auxiliem na otimização e alocação eficiente de recursos escassos (pacotes gratuitos).
 
 ## 4.2 Objetivo do projeto
 
 O que o projeto pretende alcançar?
 
-O projeto visa ser um sistema eficiente que unifica as principais ferramentas de outros já existentes no mercado em um ambiente centralizado, de fácil acesso e utilização pelos usuários.
+Desenvolver um sistema web integrado, escalável e de alta usabilidade que gerencie o progresso do usuário e processe dados probabilísticos para recomendar a melhor rota estratégica de abertura de pacotes.
 
 ------------------------------------------------------------------------
-
-------------------------------------------------------------------------
-
-Sempre que possível, formulem um objetivo mensurável.
 
 ## 4.3 Métricas / Critérios de sucesso
 
-  Métrica, situação ou valor esperado
-  --------- ----------------------------
-  1\. O gerenciador de coleção é bem recebido pelos usuários e gera feedback positivo.
-
-  2\. O sitema de trocas alcance bons níveis de segurança e confiabilidade.   
-
-  3\. A experiência geral do usuário com a plataforma seja similar ou melhor que em outras plataformas.
+| Métrica | Situação ou valor esperado |
+|---|---|
+| 1. Taxa de Aceitação (CSAT) | O gerenciador de coleções deve ser bem recebido, atingindo taxa de satisfação superior a 80%. |
+| 2. Acurácia do Algoritmo | Os cálculos de probabilidade e recomendação devem ser 100% fiéis às taxas oficiais divulgadas. |
+| 3. Desempenho do Sistema | O tempo médio de resposta nas buscas, filtragens e processamentos deve ser inferior a 2 segundos. |
 
 ## 4.4 Escopo inicial - IN
 
 Quais são as principais capacidades ou entregas que **fazem parte** do
 projeto?
 
--   [ ] Gerenciador de coleção.
--   [ ] Sistema de trocas, vendas e compras.
+-   [x] Módulo de cadastro e gerenciamento contínuo da coleção de cartas.
+-   [x] Motor de cálculo probabilístico e sistema de recomendação de pacotes.
+-   [x] Ferramentas de busca e filtragem do catálogo da API.
 
 ## 4.5 Escopo inicial - OUT
 
 O que poderia ser confundido com parte do projeto, mas **explicitamente
 não será contemplado** nesta versão?
 
--   [ ] Integração com plataformas externas.
+-   [x] Plataforma de negociação (troca e venda) de cartas entre os usuários.
+-   [x] Módulo de Deckbuilder (simulador de montagem de baralhos e partidas).
+-   [x] Integração ou sincronização automática (bot) com as contas oficiais dos jogadores.
 
 ## 4.6 Stakeholders iniciais
 
-  Stakeholder   Interesse / relação com o projeto
-  
-  - Jogadores do Pokémon TCG - Usuário principal
-                
-                
-                
-                
+| Stakeholder | Interesse / relação com o projeto |
+|---|---|
+| Jogadores de Pokémon TCG Pocket | Usuário Final: Interesse em otimizar recursos e gerenciar a coleção de forma eficiente. |
+| Equipe de Desenvolvimento | Produtores: Responsáveis por especificar, implementar e entregar o software com qualidade. |
+| Professor(a) da Disciplina | Avaliador: Interesse na correta aplicação técnica das boas práticas de Gerência de Projetos de Software. |
 
 ## 4.7 Premissas iniciais
 
 O que o grupo está assumindo como verdadeiro para conseguir planejar o
 projeto?
 
--   Os jogadores já conhecem ferramentas existentes para o gerenciamento de coleções e vendas.
+-   O público-alvo possui familiaridade prévia com a dinâmica de abertura de pacotes e com as mecânicas de coleção do Pokémon TCG Pocket.
 
     ------------------------------------------------------------------------
 
--   Os jogadores acham cansativo o processo de navegar entre diferentes plataformas para ter acesso a funcionalidades que poderiam ser agrupadas em um único sistema.
+-   A API pública utilizada como fonte de dados se manterá acessível, gratuita e será atualizada em tempo hábil após o lançamento de novas expansões.
+
+    ------------------------------------------------------------------------
+
+-   Existe uma demanda real da comunidade por ferramentas analíticas externas e sistemas de gerenciamento em virtude da ausência nativa no aplicativo móvel.
 
     ------------------------------------------------------------------------
 
@@ -255,117 +181,41 @@ projeto?
 
 Quais limitações já são conhecidas?
 
--   Devido a enorme quantidade de cartas existentes no Pokémon TCG, o sistema deverá ser limitado a um determinado número de usuários suportados.
+-   **Restrição de Arquitetura:** Devido à alta volumetria de dados possíveis (milhares de cartas), o sistema inicial em ambiente acadêmico suportará um limite pré-determinado de usuários para evitar custos excessivos de infraestrutura.
 
     ------------------------------------------------------------------------
 
--   Sistemas de troca e venda deverão ser, pelo menos inicialmente, restritos ao uso de crétidos fictícios, uma vez que uma infraestrutura de pagamentos real que seja confiável, segura e eficiente demandaria muitos recursos.
+-   **Restrição Tecnológica:** Como o jogo oficial não possui API de autenticação pública para extração de contas, o cadastro inicial e a manutenção das cartas adquiridas deverão ser realizados exclusivamente de forma manual pelo usuário.
 
     ------------------------------------------------------------------------
 
 ## 4.9 Principais riscos percebidos
 
-Nesta etapa ainda não é necessário realizar uma análise formal de
-riscos. Registrem apenas os riscos mais evidentes.
-
--   Baixa adesão dos usuários.
+-   **Risco de Retenção:** Baixa adesão por parte dos usuários devido ao atrito operacional exigido para registrar toda a coleção inicial manualmente.
 
     ------------------------------------------------------------------------
 
--   Crescimento acelerado da base de dados por conta de grandes coleções sendo cadastradas pelos usuários.
+-   **Risco de Escalabilidade:** Crescimento exponencial e acelerado da base de dados, impactando os custos do banco e o desempenho das consultas.
 
     ------------------------------------------------------------------------
 
-> **Checkpoint - 75 minutos:** o Mini-Charter deve estar preenchido. Não
-> continuem acrescentando detalhes. Passem para a revisão.
+-   **Risco de Integridade de Dados:** Desalinhamento entre o inventário virtual do jogador e os registros no software por falha de entrada humana, o que comprometerá a acurácia dos relatórios e recomendações probabilísticas geradas.
+
+    ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
 # Etapa 5 - Teste de consistência e entrega
 
-**Tempo previsto: 15 minutos**
-
-Antes da entrega, o grupo deverá revisar o Mini-Charter.
-
-  ------------------------------------------------------------------------
-  Pergunta de                  Sim                         Não
-  verificação                                  
-  ---------------- --------------------------- ---------------------------
-  Está claro qual             \[X\]                       \[ \]
-  problema                                     
-  originou o                                   
-  projeto?                                     
-
-  O objetivo                  \[ \]                       \[ \]
-  descreve um                                  
-  resultado, e não                             
-  apenas                                       
-  "desenvolver um                              
-  sistema"?                                    
-
-  Existem                     \[X\]                       \[ \]
-  critérios que                                
-  permitam avaliar                             
-  o sucesso?                                   
-
-  O escopo IN está            \[X\]                       \[ \]
-  coerente com o                               
-  objetivo?                                    
-
-  O escopo OUT                \[X\]                       \[ \]
-  estabelece uma                               
-  fronteira real                               
-  para o projeto?                              
-
-  Os principais               \[X\]                       \[ \]
-  stakeholders                                 
-  foram                                        
-  identificados?                               
-
-  Premissas e                 \[X\]                       \[ \]
-  restrições não                               
-  foram                                        
-  confundidas?                                 
-
-  O projeto parece            \[X\]                       \[ \]
-  realizável no                                
-  contexto da                                  
-  disciplina?                                  
-  ------------------------------------------------------------------------
-
-Se alguma resposta for **Não**, revisem o Mini-Charter antes da entrega.
+| Pergunta de verificação | Sim | Não |
+|---|---|---|
+| Está claro qual problema originou o projeto? | [X] | [ ] |
+| O objetivo descreve um resultado, e não apenas "desenvolver um sistema"? | [X] | [ ] |
+| Existem critérios que permitam avaliar o sucesso? | [X] | [ ] |
+| O escopo IN está coerente com o objetivo? | [X] | [ ] |
+| O escopo OUT estabelece uma fronteira real para o projeto? | [X] | [ ] |
+| Os principais stakeholders foram identificados? | [X] | [ ] |
+| Premissas e restrições não foram confundidas? | [X] | [ ] |
+| O projeto parece realizável no contexto da disciplina? | [X] | [ ] |
 
 ------------------------------------------------------------------------
-
-# Controle do tempo
-
-  Tempo       Resultado esperado
-  ----------- --------------------------------------------
-  0-10 min    Grupo e domínio definidos
-  10-30 min   Pesquisa realizada e problema compreendido
-  30-45 min   Projeto e solução em alto nível definidos
-  45-75 min   Mini-Charter construído
-  75-90 min   Revisão, correções e preparação da entrega
-
-> **Regra da atividade:** quando o tempo de uma etapa terminar, avancem.
-> O objetivo não é produzir um projeto perfeito nesta aula. O
-> Mini-Charter é uma definição inicial que será refinada durante o
-> planejamento detalhado.
-
-------------------------------------------------------------------------
-
-# Entrega
-
-Ao final da atividade:
-
-1.  completem este arquivo Markdown;
-2.  mantenham o arquivo `.md` no repositório GitHub do projeto;
-3.  gerem uma versão em PDF;
-4.  entreguem o PDF conforme orientação da disciplina.
-
-## Nome sugerido para o arquivo
-
-`mini-charter.md`
-
-O histórico do repositório deverá permitir acompanhar a evolução
-posterior do projeto.
