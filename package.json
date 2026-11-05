@@ -1,0 +1,14 @@
+{
+  "name": "pokapp-deploy",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npm run build --prefix FrontEnd"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

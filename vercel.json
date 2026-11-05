@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "installCommand": "npm install && npm install --prefix FrontEnd",
+  "buildCommand": "npm run build",
+  "builds": [
+    {
+      "src": "serve.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "FrontEnd/dist/**",
+          "BackEnd/src/**"
+        ]
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/serve.js" }
+  ]
+}

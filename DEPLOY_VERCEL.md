@@ -1,21 +1,12 @@
-# Deploy do PokApp no Vercel
+# Deploy único do PokApp no Vercel
 
-O repositório contém dois projetos independentes. Importe o mesmo repositório duas vezes no Vercel e configure um Root Directory diferente para cada projeto.
+O repositório é implantado como um único projeto Vercel, pela raiz `.`. A função `serve.js` entrega a API Express em `/api` e também serve o build do FrontEnd; as demais rotas Vue Router recebem `index.html`.
 
-## 1. Publicar o BackEnd
+## Configuração
 
-1. Crie um projeto Vercel apontando para este repositório.
-2. Em **Root Directory**, selecione `BackEnd`.
-3. Mantenha o preset Node.js/Other com o comando de instalação padrão. O Vercel detecta a aplicação Express exportada em `BackEnd/index.js`.
-4. Faça o deploy e copie o domínio gerado, por exemplo `https://pokapp-backend.vercel.app`.
-5. Confira o serviço abrindo `/api/health` nesse domínio.
+1. Importe este repositório como um projeto no Vercel.
+2. Configure **Root Directory** como `.` (raiz do repositório).
+3. Deixe o Vercel usar as definições de `vercel.json`: instalar dependências, compilar o FrontEnd e encaminhar as requisições para `serve.js`.
+4. Faça o deploy. A API fica disponível no mesmo domínio em `/api/health` e `/api/tcgdex/...`.
 
-## 2. Publicar o FrontEnd
-
-1. Crie outro projeto Vercel usando o mesmo repositório.
-2. Em **Root Directory**, selecione `FrontEnd`.
-3. Use o preset **Vite**. O comando de build é `npm run build` e a pasta de saída é `dist`.
-4. Em **Environment Variables**, crie `VITE_API_URL` com o domínio do BackEnd mais `/api`, por exemplo `https://pokapp-backend.vercel.app/api`.
-5. Faça o deploy. Se alterar a variável depois, crie um novo deploy para incorporá-la ao bundle do Vite.
-
-O arquivo `FrontEnd/vercel.json` envia rotas da aplicação Vue Router para `index.html`. Em desenvolvimento local, o Vite continua encaminhando `/api` para `http://localhost:3000`.
+Localmente, continue iniciando `BackEnd` e `FrontEnd` separadamente como descrito em `BackEnd/README.md`; o proxy do Vite encaminha `/api` para o servidor local.
