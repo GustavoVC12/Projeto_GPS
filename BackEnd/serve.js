@@ -1,8 +1,8 @@
 const path = require('node:path')
 const express = require('express')
-const app = require('./BackEnd/src/app')
+const app = require('./src/app')
 
-const frontendDirectory = path.join(__dirname, 'FrontEnd', 'dist')
+const frontendDirectory = path.join(__dirname, '..', 'FrontEnd', 'dist')
 
 app.use(express.static(frontendDirectory, {
   index: false,
