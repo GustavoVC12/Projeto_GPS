@@ -1,0 +1,14 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import CatalogView from '../views/CatalogView.vue'
+import CollectionsView from '../views/CollectionsView.vue'
+import HomeView from '../views/HomeView.vue'
+
+export default createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/', name: 'home', component: HomeView },
+    { path: '/catalogo', name: 'catalog', component: CatalogView },
+    { path: '/colecoes', name: 'collections', component: CollectionsView },
+    { path: '/:pathMatch(.*)*', redirect: '/' },
+  ],
+})
