@@ -1,21 +1,23 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "version": 2,
-  "installCommand": "npm install && npm install --prefix FrontEnd",
-  "buildCommand": "npm run build",
-  "builds": [
-    {
-      "src": "BackEnd/serve.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "FrontEnd/dist/**",
-          "BackEnd/src/**"
-        ]
-      }
+  "services": {
+    "backend": {
+      "root": "BackEnd/",
+      "entrypoint": "serve.js",
+      "framework": "express"
+    },
+    "frontend": {
+      "root": "FrontEnd/"
     }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/BackEnd/serve.js" }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": { "service": "backend" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "service": "frontend" }
+    }
   ]
 }
