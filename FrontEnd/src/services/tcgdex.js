@@ -12,7 +12,11 @@ function imageForPocketCard(card, setId) {
 async function getJsonFrom(root, path) {
   const response = await fetch(`${root}${path}`, { headers: { accept: 'application/json' } })
   const body = await response.json().catch(() => ({}))
-  if (!response.ok) throw new Error(body.detail || body.error || `PokApp API respondeu ${response.status}`)
+  if (!response.ok) {
+    const error = new Error(body.detail || body.error || `PokApp API respondeu ${response.status}`)
+    error.status = response.status
+    throw error
+  }
   return body
 }
 
@@ -21,7 +25,9 @@ async function getJson(path) {
     return await getJsonFrom(API_ROOT, path)
   } catch (backendError) {
     if (import.meta.env.VITE_TCGDEX_FALLBACK !== 'true') {
-      throw new Error(`A API do PokApp não respondeu. Inicie o BackEnd local e tente novamente. (${backendError.message})`)
+      const error = new Error(`A API do PokApp não respondeu. Inicie o BackEnd local e tente novamente. (${backendError.message})`)
+      error.status = backendError.status
+      throw error
     }
     try {
       const route = path.replace(/^\/tcgdex/, '')
@@ -130,8 +136,22 @@ export async function getCards(setId, { includeBoosterDetails = false } = {}) {
   }))
 }
 
+async function getCardsBySet() {
+  const sets = await getSets()
+  const pages = await Promise.all(sets.map(set => getCards(set.id)))
+  return pages.flat()
+}
+
 export async function getAllCards() {
-  const firstPage = await getJson('/tcgdex/cards?limit=200&offset=0')
+  let firstPage
+  try {
+    firstPage = await getJson('/tcgdex/cards?limit=200&offset=0')
+  } catch (error) {
+    // Older Vercel deployments may not yet expose the paginated catalog route.
+    // The per-expansion endpoint is also used by the collection pages.
+    if (error.status === 404) return getCardsBySet()
+    throw error
+  }
   if (firstPage.total) {
     const pages = await Promise.all(Array.from({ length: Math.ceil(firstPage.total / 200) - 1 }, (_, index) =>
       getJson(`/tcgdex/cards?limit=200&offset=${(index + 1) * 200}`)))
@@ -141,9 +161,7 @@ export async function getAllCards() {
     }))
   }
   if (firstPage.cached) return []
-  const sets = await getSets()
-  const pages = await Promise.all(sets.map(set => getCards(set.id)))
-  return pages.flat()
+  return getCardsBySet()
 }
 
 export async function getFeaturedCards(sets) {
