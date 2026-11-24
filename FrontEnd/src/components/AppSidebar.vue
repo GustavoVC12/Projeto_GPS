@@ -10,6 +10,7 @@ import ball from '../assets/bolaPokemon.png'
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/catalogo">Catalogo</RouterLink>
       <RouterLink to="/colecoes">Coleções</RouterLink>
+      <RouterLink to="/recomendacoes">Recomendações</RouterLink>
     </nav>
     <img class="trainer-art" src="../assets/Ash Ketchum.png" alt="Treinador Pokémon" />
   </aside>

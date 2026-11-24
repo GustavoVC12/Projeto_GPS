@@ -2,17 +2,22 @@ import { defineStore } from 'pinia'
 
 const STORAGE_KEY = 'pokapp-collection-v1'
 const SAVED_COLLECTIONS_KEY = 'pokapp-named-collections-v1'
+const WISHLIST_KEY = 'pokapp-wishlist-v1'
 function readStorage() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') } catch { return {} }
 }
 function readSavedCollections() {
   try { return JSON.parse(localStorage.getItem(SAVED_COLLECTIONS_KEY) || '[]') } catch { return [] }
 }
+function readWishlist() {
+  try { return JSON.parse(localStorage.getItem(WISHLIST_KEY) || '{}') } catch { return {} }
+}
 
 export const useCollectionStore = defineStore('collection', {
-  state: () => ({ cards: readStorage(), savedCollections: readSavedCollections() }),
+  state: () => ({ cards: readStorage(), savedCollections: readSavedCollections(), wishlist: readWishlist() }),
   getters: {
     selectedIds: state => new Set(Object.keys(state.cards)),
+    wishlistIds: state => new Set(Object.keys(state.wishlist)),
     count: state => Object.values(state.cards).reduce((sum, card) => sum + (card.quantity || 1), 0),
     bySet: state => {
       const groups = {}
@@ -27,6 +32,12 @@ export const useCollectionStore = defineStore('collection', {
   actions: {
     persist() { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.cards)) },
     persistSavedCollections() { localStorage.setItem(SAVED_COLLECTIONS_KEY, JSON.stringify(this.savedCollections)) },
+    persistWishlist() { localStorage.setItem(WISHLIST_KEY, JSON.stringify(this.wishlist)) },
+    toggleWishlist(card) {
+      if (this.wishlist[card.id]) delete this.wishlist[card.id]
+      else this.wishlist[card.id] = { ...card }
+      this.persistWishlist()
+    },
     toggle(card) {
       if (this.cards[card.id]) delete this.cards[card.id]
       else this.cards[card.id] = { ...card, setCardCount: card.setCardCount || card.setTotal || 0, quantity: 1 }

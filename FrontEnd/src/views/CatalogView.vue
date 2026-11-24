@@ -4,7 +4,8 @@ import { useRoute, useRouter } from 'vue-router'
 import CatalogFilters from '../components/CatalogFilters.vue'
 import CardGrid from '../components/CardGrid.vue'
 import CollectionBuilder from '../components/CollectionBuilder.vue'
-import { getCards, getFeaturedCards, getSets } from '../services/tcgdex'
+import { getAllCards, getCards, getSets } from '../services/tcgdex'
+import { readCachedCatalog, saveCachedCatalog } from '../services/catalogCache'
 import { useCollectionStore } from '../stores/collection'
 
 const route = useRoute()
@@ -40,18 +41,16 @@ async function loadSets() {
 async function loadCards() {
   const current = ++requestNumber
   loadingCards.value = true
-  if (!sets.value.length && !setId.value) {
-    loadingCards.value = false
-    if (!error.value) error.value = 'Nenhuma expansão foi carregada. Verifique se o BackEnd está iniciado e se há conexão com a TCGdex.'
-    return
-  }
   try {
     const loadedCards = setId.value
       ? await getCards(setId.value)
-      : await getFeaturedCards(sets.value)
+      : await getAllCards()
     if (current !== requestNumber) return
     cards.value = loadedCards.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR') || a.setName.localeCompare(b.setName, 'pt-BR') || Number(a.localId) - Number(b.localId))
-    if (!cards.value.length) error.value = 'A expansão retornou a lista vazia. Confira a conexão e tente novamente.'
+    if (!setId.value) saveCachedCatalog(cards.value)
+    if (!cards.value.length) error.value = setId.value
+      ? 'Esta expansão não tem cartas no banco local. Sincronize o catálogo e tente novamente.'
+      : 'O banco local ainda não tem cartas. Sincronize o catálogo pelo BackEnd e tente novamente.'
   } catch (cause) {
     if (current === requestNumber) error.value = `Falha ao carregar cartas. ${cause.message}`
   } finally { if (current === requestNumber) loadingCards.value = false }
@@ -69,8 +68,12 @@ function toggleCard(card) {
   else collection.toggle(card)
 }
 onMounted(async () => {
-  await loadSets()
-  await loadCards()
+  const cachedCatalog = readCachedCatalog()
+  const setsRequest = loadSets()
+  const cardsRequest = loadCards()
+  const cached = await cachedCatalog
+  if (cached?.length && !setId.value && !cards.value.length) cards.value = cached
+  await Promise.all([setsRequest, cardsRequest])
 })
 </script>
 
@@ -80,9 +83,9 @@ onMounted(async () => {
     <div class="catalog-workspace">
       <section class="catalog-browser">
         <CatalogFilters v-model:search="search" v-model:type="type" :set-id="setId" :sets="sets" v-model:rarity="rarity" :loading="loadingSets || loadingCards" @update:set-id="selectSet" />
-        <div class="results-heading"><span>{{ filteredCards.length }} <strong>{{ filteredCards.length === 1 ? 'carta' : 'cartas' }}</strong><template v-if="setId && sets.length"> em {{ sets.find(set => set.id === setId)?.name || setId }}</template></span><span class="click-help"><span class="click-dot">✓</span> Clique na carta para adicionar ou remover</span></div>
+        <div class="results-heading"><span><template v-if="loadingCards && !cards.length">Carregando cartas…</template><template v-else>{{ filteredCards.length }} <strong>{{ filteredCards.length === 1 ? 'carta' : 'cartas' }}</strong></template><template v-if="setId && sets.length"> em {{ sets.find(set => set.id === setId)?.name || setId }}</template></span><span class="click-help"><span class="click-dot">✓</span> Clique na carta para adicionar ou remover</span></div>
         <div v-if="error" class="error-banner">{{ error }} <button @click="setId ? loadCards() : loadSets().then(loadCards)">Tentar novamente</button></div>
-        <CardGrid :cards="filteredCards" :selected-ids="selectedIds" :loading="loadingCards" @toggle="toggleCard" />
+        <CardGrid :cards="filteredCards" :selected-ids="selectedIds" :wishlist-ids="collection.wishlistIds" :loading="loadingCards" @toggle="toggleCard" @toggle-wishlist="collection.toggleWishlist" />
       </section>
       <CollectionBuilder :editing-collection="editingCollection" />
     </div>

@@ -16,7 +16,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative h-[calc(100dvh-73px)] w-full overflow-hidden bg-[#1c1c1c] text-white">
+  <div class="home-screen relative w-full overflow-hidden bg-[#1c1c1c] text-white">
     <!-- Zapdos: topo esquerdo -->
     <img
       src="../assets/pok4Home.png"
