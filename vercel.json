@@ -5,7 +5,11 @@
       "root": "BackEnd/",
       "entrypoint": "serve.js",
       "framework": "express",
-      "includeFiles": ["data/pokapp.sqlite"]
+      "functions": {
+        "serve.js": {
+          "includeFiles": "data/pokapp.sqlite"
+        }
+      }
     },
     "frontend": {
       "root": "FrontEnd/"
